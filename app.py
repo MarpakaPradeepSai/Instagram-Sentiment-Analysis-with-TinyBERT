@@ -29,17 +29,17 @@ def predict_sentiment(text):
     probs = torch.nn.functional.softmax(outputs.logits, dim=1)
     return probs.detach().numpy()
 
-# Function to map probabilities to sentiment labels
+# Function to map probabilities to sentiment labels and emojis
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative", "Neutral", "Positive"]
+    sentiment_mapping = ["Negative 😢", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
 # Function to get background color based on sentiment
 def get_background_color(label):
-    if label == "Positive":
+    if "Positive" in label:
         return "#28a745"  # Darker green
-    elif label == "Neutral":
+    elif "Neutral" in label:
         return "#ffc107"  # Darker yellow
     else:
         return "#dc3545"  # Darker red
@@ -100,7 +100,7 @@ if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
-        background_color = get_background_color(sentiment_label.strip())  # Get the background color for the sentiment
+        background_color = get_background_color(sentiment_label)  # Get the background color for the sentiment
         st.markdown(
             f"""
             <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
