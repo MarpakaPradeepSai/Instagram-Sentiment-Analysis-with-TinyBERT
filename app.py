@@ -29,6 +29,12 @@ def predict_sentiment(text):
     probs = torch.nn.functional.softmax(outputs.logits, dim=1)
     return probs.detach().numpy()
 
+# Function to map probabilities to sentiment labels
+def get_sentiment_label(probs):
+    sentiment_mapping = ["Negative", "Neutral", "Positive"]
+    max_index = probs.argmax()
+    return sentiment_mapping[max_index]
+
 # Streamlit app
 st.title("Sentiment Analysis with TinyBERT")
 user_input = st.text_area("Enter text to analyze")
@@ -36,6 +42,8 @@ user_input = st.text_area("Enter text to analyze")
 if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
+        sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
+        st.write(f"Sentiment: {sentiment_label}")
         st.write(f"Sentiment probabilities: {sentiment_probs}")
     else:
         st.write("Please enter text to analyze.")
