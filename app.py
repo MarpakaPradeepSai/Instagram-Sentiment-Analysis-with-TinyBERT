@@ -56,10 +56,6 @@ st.markdown(
         border-radius: 4px;
         padding: 10px 24px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .stButton>button:hover {
-        background-color: #0056b3;
     }
     .center-image {
         display: block;
