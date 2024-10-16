@@ -61,18 +61,21 @@ st.markdown(
     .stButton>button:hover {
         background-color: #45a049;
     }
+    .center-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
 st.title("📊 Sentiment Analysis with TinyBERT")
+
 st.markdown(
     """
-    <div style="background-color:#f4f4f8; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
-        <h2 style="color: #4CAF50;">Analyze the sentiment of your text</h2>
-        <p>Enter a piece of text and let our TinyBERT model determine if it's Positive, Neutral, or Negative.</p>
-    </div>
+    <img src="https://webcmstavtech.tav.aero/uploads/59f9875dc0e79a3594308ad3/static-pages/main-images/sentiment-analysis_1.jpg" alt="Sentiment Analysis" class="center-image" width="400">
     """,
     unsafe_allow_html=True
 )
@@ -85,7 +88,7 @@ if st.button("Analyze"):
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
         st.markdown(
             f"""
-            <div style="background-color:#e7f5e9; padding: 10px; border-radius: 5px;">
+            <div style="background-color:#e7f5e9; padding: 10px; border-radius: 5px; text-align: center;">
                 <h3>Sentiment: {sentiment_label}</h3>
             </div>
             """,
