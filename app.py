@@ -44,6 +44,5 @@ if st.button("Analyze"):
         sentiment_probs = predict_sentiment(user_input)
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
         st.write(f"Sentiment: {sentiment_label}")
-        st.write(f"Sentiment probabilities: {sentiment_probs}")
     else:
         st.write("Please enter text to analyze.")
