@@ -31,7 +31,7 @@ def predict_sentiment(text):
 
 # Function to map probabilities to sentiment labels
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative", "Neutral", "Positive"]
+    sentiment_mapping = ["Negative 😡", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
