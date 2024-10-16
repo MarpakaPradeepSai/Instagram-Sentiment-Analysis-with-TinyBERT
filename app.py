@@ -14,9 +14,13 @@ def download_file_from_github(url, local_path):
 repo_url = 'https://github.com/MarpakaPradeepSai/Instagram-Sentiment-Analysis-with-TinyBERT/raw/main/TinyBERT_model'
 files = ['config.json', 'model.safetensors', 'special_tokens_map.json', 'tokenizer_config.json', 'training_args.bin', 'vocab.txt']
 
-# Download each file
+# Download each file if not already downloaded
+if not os.path.exists('./TinyBERT_model'):
+    os.makedirs('./TinyBERT_model')
 for file in files:
-    download_file_from_github(f"{repo_url}/{file}", f"./TinyBERT_model/{file}")
+    local_file_path = f"./TinyBERT_model/{file}"
+    if not os.path.exists(local_file_path):
+        download_file_from_github(f"{repo_url}/{file}", local_file_path)
 
 # Load tokenizer and model
 tokenizer = BertTokenizer.from_pretrained('./TinyBERT_model')
@@ -35,15 +39,57 @@ def get_sentiment_label(probs):
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
-# Streamlit app
+# Streamlit app layout
+st.set_page_config(page_title="Sentiment Analysis with TinyBERT", page_icon="💬", layout="centered")
 st.title("Sentiment Analysis with TinyBERT")
-user_input = st.text_area("Enter text to analyze")
+
+st.markdown("""
+<style>
+    .main {
+        background-color: #f0f2f5;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #4a4a4a;
+    }
+    textarea {
+        background-color: #ffffff;
+        border: 1px solid #d1d1d1;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        width: 100%;
+        height: 200px;
+    }
+    .button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+user_input = st.text_area("Enter text to analyze:", height=200)
 
 if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
-        sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
-        st.write(f"Sentiment: {sentiment_label}")
-        st.write(f"Sentiment probabilities: {sentiment_probs}")
+        sentiment_label = get_sentiment_label(sentiment_probs[0])
+        st.success(f"Sentiment: **{sentiment_label}**")
     else:
-        st.write("Please enter text to analyze.")
+        st.error("Please enter text to analyze.")
+
+st.markdown("""
+---
+### About
+This application uses TinyBERT for sentiment analysis. Enter any text to see its sentiment (Negative, Neutral, Positive).
+""")
