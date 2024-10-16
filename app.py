@@ -3,36 +3,33 @@ from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 
 # Load the model and tokenizer
-model_path = './TinyBERT_model'  # Path to your model directory
+model_path = "TinyBERT_model"
 tokenizer = BertTokenizer.from_pretrained(model_path)
-model = BertForSequenceClassification.from_pretrained(model_path, use_safetensors=False)
+model = BertForSequenceClassification.from_pretrained(model_path)
 
-# Define sentiment mapping
-sentiment_mapping = {0: "Negative", 1: "Neutral", 2: "Positive"}
+# Function to predict sentiment
+def predict_sentiment(text):
+    inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
+    outputs = model(**inputs)
+    probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+    predicted_class = torch.argmax(probs, dim=-1).item()
+    
+    sentiment_mapping = {0: "Negative", 1: "Neutral", 2: "Positive"}
+    return sentiment_mapping[predicted_class]
 
-# Streamlit app title
+# Streamlit app
 st.title("Sentiment Analysis with TinyBERT")
 
-# Input text area for user
-user_input = st.text_area("Enter text for sentiment analysis:")
+# Text input
+user_input = st.text_area("Enter text for sentiment analysis:", "")
 
-# Button to submit input
-if st.button("Analyze"):
+if st.button("Analyze Sentiment"):
     if user_input:
-        # Tokenize input
-        inputs = tokenizer(user_input, return_tensors='pt', truncation=True, padding=True)
-        
-        # Get prediction
-        with torch.no_grad():
-            outputs = model(**inputs)
-            predictions = torch.argmax(outputs.logits, dim=1)
-            sentiment = sentiment_mapping[predictions.item()]
-        
-        # Display the result
-        st.success(f"The predicted sentiment is: **{sentiment}**")
+        sentiment = predict_sentiment(user_input)
+        st.write(f"Predicted sentiment: {sentiment}")
     else:
-        st.warning("Please enter some text.")
+        st.write("Please enter some text to analyze.")
 
-# Run the app
-if __name__ == "__main__":
-    st.run()
+# Add some information about the model
+st.sidebar.header("About")
+st.sidebar.info("This app uses a fine-tuned TinyBERT model to predict the sentiment of text as Negative, Neutral, or Positive.")
