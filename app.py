@@ -38,11 +38,11 @@ def get_sentiment_label(probs):
 # Function to get background color based on sentiment
 def get_background_color(label):
     if "Positive" in label:
-        return "#28a745"  # Darker green
+        return "#C3E6CB"  # Softer green
     elif "Neutral" in label:
-        return "#ffc107"  # Darker yellow
+        return "#FFE8A1"  # Softer yellow
     else:
-        return "#dc3545"  # Darker red
+        return "#F5C6CB"  # Softer red
 
 # Streamlit app
 st.set_page_config(
