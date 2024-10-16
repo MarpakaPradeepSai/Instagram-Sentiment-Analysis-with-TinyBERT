@@ -67,7 +67,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("📊 Sentiment Analysis with TinyBERT")
+st.markdown(
+    """
+    <h1 style="font-size: 36px; text-align: center;">📊 Sentiment Analysis with TinyBERT</h1>
+    """,
+    unsafe_allow_html=True
+)
 
 st.markdown(
     """
