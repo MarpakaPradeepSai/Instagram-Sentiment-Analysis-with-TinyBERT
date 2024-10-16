@@ -69,7 +69,7 @@ st.markdown(
 
 st.markdown(
     """
-    <h1 style="font-size: 41px; text-align: center;">📊 Instgaram Sentiment Analysis with TinyBERT</h1>
+    <h1 style="font-size: 41px; text-align: center;">📊 Instagram Sentiment Analysis with TinyBERT</h1>
     """,
     unsafe_allow_html=True
 )
