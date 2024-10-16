@@ -31,7 +31,7 @@ def predict_sentiment(text):
 
 # Function to map probabilities to sentiment labels
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative", "Neutral", "Positive"]
+    sentiment_mapping = ["Negative 😞", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
@@ -57,10 +57,6 @@ st.markdown(
         padding: 10px 24px;
         cursor: pointer;
     }
-    .stButton>button:hover {
-        background-color: #0056b3;
-        color: white; /* Keeps the text color white on hover */
-    }
     .center-image {
         display: block;
         margin-left: auto;
@@ -73,7 +69,7 @@ st.markdown(
 
 st.markdown(
     """
-    <h1 style="font-size: 41px; text-align: center;">Instagram Sentiment Analysis with TinyBERT</h1>
+    <h1 style="font-size: 41px; text-align: center;">📊 Instagram Sentiment Analysis with TinyBERT</h1>
     """,
     unsafe_allow_html=True
 )
