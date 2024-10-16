@@ -62,13 +62,16 @@ st.markdown(
         background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 25px;  /* Increased border radius for more curve */
         padding: 10px 24px;
         cursor: pointer;
+        font-size: 16px;  /* Increased font size for better readability */
+        transition: background-color 0.3s, transform 0.3s;  /* Smooth transition */
     }
     .stButton>button:hover {
         background-color: #0056b3;
         color: white; /* Keeps the text color white on hover */
+        transform: scale(1.05);  /* Slightly enlarge button on hover */
     }
     .center-image {
         display: block;
