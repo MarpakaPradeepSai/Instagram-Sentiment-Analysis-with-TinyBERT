@@ -5,7 +5,7 @@ import torch
 # Load the model and tokenizer
 model_path = 'TinyBERT_model'  # Path to your model directory
 tokenizer = BertTokenizer.from_pretrained(model_path)
-model = BertForSequenceClassification.from_pretrained(model_path)
+model = BertForSequenceClassification.from_pretrained("TinyBERT_model/model.safetensors")
 
 # Define sentiment mapping
 sentiment_mapping = {0: "Negative", 1: "Neutral", 2: "Positive"}
