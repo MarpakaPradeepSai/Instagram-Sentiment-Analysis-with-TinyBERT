@@ -35,15 +35,6 @@ def get_sentiment_label(probs):
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
-# Function to get background color based on sentiment
-def get_background_color(label):
-    if label == "Positive":
-        return "#d4edda"  # Green
-    elif label == "Neutral":
-        return "#fff3cd"  # Yellow
-    else:
-        return "#f8d7da"  # Red
-
 # Streamlit app
 st.set_page_config(
     page_title="Sentiment Analysis with TinyBERT",
@@ -66,10 +57,6 @@ st.markdown(
         padding: 10px 24px;
         cursor: pointer;
     }
-    .stButton>button:hover {
-        background-color: #0056b3;
-        color: white; /* Keeps the text color white on hover */
-    }
     .center-image {
         display: block;
         margin-left: auto;
@@ -82,7 +69,7 @@ st.markdown(
 
 st.markdown(
     """
-    <h1 style="font-size: 41px; text-align: center;">Instagram Sentiment Analysis with TinyBERT</h1>
+    <h1 style="font-size: 41px; text-align: center;"> Instagram Sentiment Analysis with TinyBERT</h1>
     """,
     unsafe_allow_html=True
 )
@@ -100,10 +87,17 @@ if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
-        background_color = get_background_color(sentiment_label.strip())  # Get the background color for the sentiment
+        
+        # Color mapping for sentiment labels
+        color_mapping = {
+            "Positive": "#C6F4D6",  # Green
+            "Neutral": "#F7DC6F",  # Yellow
+            "Negative": "#F29393"  # Red
+        }
+        
         st.markdown(
             f"""
-            <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
+            <div style="background-color:{color_mapping[sentiment_label]}; padding: 10px; border-radius: 5px; text-align: center;">
                 <h3>Sentiment: {sentiment_label}</h3>
             </div>
             """,
