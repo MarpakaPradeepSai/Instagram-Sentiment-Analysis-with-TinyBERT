@@ -36,14 +36,60 @@ def get_sentiment_label(probs):
     return sentiment_mapping[max_index]
 
 # Streamlit app
-st.title("Sentiment Analysis with TinyBERT")
+st.set_page_config(
+    page_title="Sentiment Analysis with TinyBERT",
+    page_icon=":mag:",
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
+
+st.markdown(
+    """
+    <style>
+    .main {
+        background-color: #F0F2F6;
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 24px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .stButton>button:hover {
+        background-color: #45a049;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("📊 Sentiment Analysis with TinyBERT")
+st.markdown(
+    """
+    <div style="background-color:#f4f4f8; padding: 10px; border-radius: 10px; margin-bottom: 20px;">
+        <h2 style="color: #4CAF50;">Analyze the sentiment of your text</h2>
+        <p>Enter a piece of text and let our TinyBERT model determine if it's Positive, Neutral, or Negative.</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 user_input = st.text_area("Enter text to analyze")
 
 if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
-        st.write(f"Sentiment: {sentiment_label}")
-        st.write(f"Sentiment probabilities: {sentiment_probs}")
+        st.markdown(
+            f"""
+            <div style="background-color:#e7f5e9; padding: 10px; border-radius: 5px;">
+                <h3>Sentiment: {sentiment_label}</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     else:
         st.write("Please enter text to analyze.")
