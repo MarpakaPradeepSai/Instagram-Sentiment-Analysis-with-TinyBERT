@@ -73,6 +73,12 @@ st.markdown(
         color: white; /* Keeps the text color white on hover */
         transform: scale(1.05);  /* Slightly enlarge button on hover */
     }
+    .prediction-box {
+        border-radius: 25px;  /* Match the button's rounded shape */
+        padding: 10px;  /* Padding for the box */
+        text-align: center;
+        font-size: 18px;  /* Font size for better readability */
+    }
     .center-image {
         display: block;
         margin-left: auto;
@@ -106,7 +112,7 @@ if st.button("Analyze"):
         background_color = get_background_color(sentiment_label)  # Get the background color for the sentiment
         st.markdown(
             f"""
-            <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
+            <div style="background-color:{background_color}; padding: 10px; border-radius: 25px; text-align: center;" class="prediction-box">
                 <h3>Sentiment: {sentiment_label}</h3>
             </div>
             """,
