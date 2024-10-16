@@ -31,7 +31,7 @@ def predict_sentiment(text):
 
 # Function to map probabilities to sentiment labels and emojis
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative 😡", "Neutral 😐", "Positive 😊"]
+    sentiment_mapping = ["Negative 😢", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
@@ -62,7 +62,7 @@ st.markdown(
         background-color: #007bff;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 20px;  # More curved
         padding: 10px 24px;
         cursor: pointer;
     }
@@ -74,6 +74,13 @@ st.markdown(
         display: block;
         margin-left: auto;
         margin-right: auto;
+    }
+    .sentiment-box {
+        padding: 10px;
+        border-radius: 20px;  # More curved
+        text-align: center;
+        color: #333;
+        margin-top: 20px;
     }
     </style>
     """,
@@ -103,7 +110,7 @@ if st.button("Analyze"):
         background_color = get_background_color(sentiment_label)  # Get the background color for the sentiment
         st.markdown(
             f"""
-            <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
+            <div class="sentiment-box" style="background-color:{background_color};">
                 <h3>Sentiment: {sentiment_label}</h3>
             </div>
             """,
