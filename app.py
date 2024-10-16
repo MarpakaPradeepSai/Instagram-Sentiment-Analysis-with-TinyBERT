@@ -31,7 +31,7 @@ def predict_sentiment(text):
 
 # Function to map probabilities to sentiment labels and emojis
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative 😢", "Neutral 😐", "Positive 😊"]
+    sentiment_mapping = ["Negative 😡", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
@@ -68,9 +68,10 @@ st.markdown(
         font-size: 16px;  /* Increased font size for better readability */
         transition: background-color 0.3s, transform 0.3s;  /* Smooth transition */
     }
-    .stButton>button:active {
+    .stButton>button:hover {
         background-color: #0056b3;
-        color: white; /* Keeps the text color white on click */
+        color: white; /* Keeps the text color white on hover */
+        transform: scale(1.05);  /* Slightly enlarge button on hover */
     }
     .prediction-box {
         border-radius: 25px;  /* Match the button's rounded shape */
