@@ -50,7 +50,7 @@ st.markdown(
         background-color: #F0F2F6;
     }
     .stButton>button {
-        background-color: #4CAF50;
+        background-color: #007bff;
         color: white;
         border: none;
         border-radius: 4px;
@@ -59,7 +59,7 @@ st.markdown(
         transition: background-color 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #45a049;
+        background-color: #0056b3;
     }
     .center-image {
         display: block;
