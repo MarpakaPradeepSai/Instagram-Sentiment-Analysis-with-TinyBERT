@@ -29,11 +29,20 @@ def predict_sentiment(text):
     probs = torch.nn.functional.softmax(outputs.logits, dim=1)
     return probs.detach().numpy()
 
-# Function to map probabilities to sentiment labels
+# Function to map probabilities to sentiment labels and emojis
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative 😡", "Neutral 😐", "Positive 😊"]
+    sentiment_mapping = ["Negative 😢", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
+
+# Function to get background color based on sentiment
+def get_background_color(label):
+    if "Positive" in label:
+        return "#C3E6CB"  # Softer green
+    elif "Neutral" in label:
+        return "#FFE8A1"  # Softer yellow
+    else:
+        return "#F5C6CB"  # Softer red
 
 # Streamlit app
 st.set_page_config(
@@ -57,6 +66,10 @@ st.markdown(
         padding: 10px 24px;
         cursor: pointer;
     }
+    .stButton>button:hover {
+        background-color: #0056b3;
+        color: white; /* Keeps the text color white on hover */
+    }
     .center-image {
         display: block;
         margin-left: auto;
@@ -69,7 +82,7 @@ st.markdown(
 
 st.markdown(
     """
-    <h1 style="font-size: 41px; text-align: center;">📊 Instagram Sentiment Analysis with TinyBERT</h1>
+    <h1 style="font-size: 41px; text-align: center;">Instagram Sentiment Analysis with TinyBERT</h1>
     """,
     unsafe_allow_html=True
 )
@@ -87,9 +100,10 @@ if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
         sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
+        background_color = get_background_color(sentiment_label)  # Get the background color for the sentiment
         st.markdown(
             f"""
-            <div style="background-color:#e7f5e9; padding: 10px; border-radius: 5px; text-align: center;">
+            <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
                 <h3>Sentiment: {sentiment_label}</h3>
             </div>
             """,
