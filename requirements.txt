@@ -73,10 +73,6 @@ st.markdown(
         color: white; /* Keeps the text color white on hover */
         transform: scale(1.05);  /* Slightly enlarge button on hover */
     }
-    .stButton>button:active {
-        background-color: #0056b3;  /* Maintain the hover color when clicked */
-        color: white;  /* Ensure text remains white on click */
-    }
     .prediction-box {
         border-radius: 25px;  /* Match the button's rounded shape */
         padding: 10px;  /* Padding for the box */
