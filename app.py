@@ -52,28 +52,18 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Custom CSS to keep button text white
 st.markdown(
     """
     <style>
-    .main {
-        background-color: #F0F2F6;
-    }
-    .stButton>button {
-        background-color: #007bff;
+    .stButton > button {
         color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 10px 24px;
-        cursor: pointer;
     }
-    .stButton>button:hover {
-        background-color: #0056b3;
-        color: white; /* Keeps the text color white on hover */
+    .stButton > button:focus {
+        color: white;
     }
-    .center-image {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+    .stButton > button:hover {
+        color: white;
     }
     </style>
     """,
@@ -82,14 +72,7 @@ st.markdown(
 
 st.markdown(
     """
-    <h1 style="font-size: 41px; text-align: center;">Instagram Sentiment Analysis with TinyBERT</h1>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    """
-    <img src="https://webcmstavtech.tav.aero/uploads/59f9875dc0e79a3594308ad3/static-pages/main-images/sentiment-analysis_1.jpg" alt="Sentiment Analysis" class="center-image" width="400">
+    <h1 style="text-align:center;">Instagram Sentiment Analysis with TinyBERT</h1>
     """,
     unsafe_allow_html=True
 )
@@ -103,8 +86,8 @@ if st.button("Analyze"):
         background_color = get_background_color(sentiment_label)  # Get the background color for the sentiment
         st.markdown(
             f"""
-            <div style="background-color:{background_color}; padding: 10px; border-radius: 5px; text-align: center;">
-                <h3>Sentiment: {sentiment_label}</h3>
+            <div style="background-color:{background_color};padding:10px;border-radius:10px">
+            <h2 style="text-align:center;">Sentiment: {sentiment_label}</h2>
             </div>
             """,
             unsafe_allow_html=True
