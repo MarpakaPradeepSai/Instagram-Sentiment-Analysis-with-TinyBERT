@@ -31,7 +31,7 @@ def predict_sentiment(text):
 
 # Function to map probabilities to sentiment labels
 def get_sentiment_label(probs):
-    sentiment_mapping = ["Negative ", "Neutral ", "Positive "]
+    sentiment_mapping = ["Negative 😡", "Neutral 😐", "Positive 😊"]
     max_index = probs.argmax()
     return sentiment_mapping[max_index]
 
@@ -43,18 +43,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS to prevent button text color change
 st.markdown(
     """
     <style>
-    .stButton > button {
-        color: white;
+    .main {
+        background-color: #F0F2F6;
     }
-    .stButton > button:hover {
+    .stButton>button {
+        background-color: #007bff;
         color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 24px;
+        cursor: pointer;
     }
-    .stButton > button:focus {
-        color: white;
+    .center-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
     </style>
     """,
@@ -63,29 +69,29 @@ st.markdown(
 
 st.markdown(
     """
-    
+    <h1 style="font-size: 41px; text-align: center;">📊 Instagram Sentiment Analysis with TinyBERT</h1>
+    """,
+    unsafe_allow_html=True
+)
 
- Instagram Sentiment Analysis with TinyBERT
-
-
+st.markdown(
+    """
+    <img src="https://webcmstavtech.tav.aero/uploads/59f9875dc0e79a3594308ad3/static-pages/main-images/sentiment-analysis_1.jpg" alt="Sentiment Analysis" class="center-image" width="400">
     """,
     unsafe_allow_html=True
 )
 
 user_input = st.text_area("Enter text to analyze")
+
 if st.button("Analyze"):
     if user_input:
         sentiment_probs = predict_sentiment(user_input)
-        sentiment_label = get_sentiment_label(sentiment_probs[0])  
+        sentiment_label = get_sentiment_label(sentiment_probs[0])  # Get the label for the highest probability
         st.markdown(
             f"""
- 
-
-
-Sentiment: {sentiment_label}
-
-
- 
+            <div style="background-color:#e7f5e9; padding: 10px; border-radius: 5px; text-align: center;">
+                <h3>Sentiment: {sentiment_label}</h3>
+            </div>
             """,
             unsafe_allow_html=True
         )
